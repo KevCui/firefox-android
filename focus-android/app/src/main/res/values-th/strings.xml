@@ -164,7 +164,7 @@
     <string name="preference_mozilla_summary">เกี่ยวกับ %1$s, ช่วยเหลือ</string>
 
     <!-- Preference category for ad blocking and enhanced tracking protection settings -->
-    <string name="preference_category_tracking_protection3">การป้องกันการติดตามที่มากขึ้น</string>
+    <string name="preference_category_tracking_protection3">การป้องกันการติดตามแบบพิเศษ</string>
 
     <!-- Preference category for settings related to controlling web content -->
     <string name="preference_category_web_content">เนื้อหาเว็บ</string>
@@ -575,7 +575,7 @@
 
     <!-- When enhanced tracking protection is disabled for the current session then we will show this warning in the "Add to home screen" dialog to
          let the user know that the shortcut will always be opened with enhanced tracking protection disabled. -->
-    <string name="dialog_addtohomescreen_tracking_protection2">ทางลัดจะเปิดพร้อมปิดใช้งานการป้องกันการติดตามที่มากขึ้น</string>
+    <string name="dialog_addtohomescreen_tracking_protection2">ทางลัดจะเปิดพร้อมปิดใช้งานการป้องกันการติดตามแบบพิเศษ</string>
 
     <!-- The user visible name of the "notification channel" (Android 8+ feature) for the ongoing notification shown while a browsing session is active.
     The recommended maximum length is 40 characters; the value may be truncated if it is too long.
@@ -702,12 +702,6 @@
     <!--  Preference summary inside Cookie banner reduction screen. Here you can set the cookie banner option to disabled or reject_all. -->
     <string name="cookie_banner_reject_all_option_summary">เห็นแบนเนอร์น้อยลงโดยปฏิเสธคำขอคุกกี้โดยอัตโนมัติเมื่อเป็นไปได้</string>
 
-    <!--  Checkbox Preference title inside Cookie banner reduction screen. Here you can set the cookie banner option to reject_or_accept_all or reject_all. -->
-    <string name="cookie_banner_further_reduce_option_title">ลดแบนเนอร์คุกกี้เพิ่มเติม</string>
-
-    <!--  Checkbox Preference summary inside Cookie banner reduction screen. Here you can set the cookie banner option to reject_or_accept_all or reject_all. -->
-    <string name="cookie_banner_further_reduce_option_summary">คำขอแบนเนอร์คุกกี้จะถูกยอมรับเพื่อปิดแบนเนอร์เพิ่มเติม</string>
-
     <!-- Preference for removing cookie/consent banners from sites automatically, this is shown as part of the protections panel with the tracking protection toggle. -->--&gt;
     <string name="cookie_banner_exception_item_title">การลดแบนเนอร์คุกกี้</string>
 
@@ -736,7 +730,20 @@
     <string name="cookie_banner_exception_panel_description_state_on_for_site">%1$s จะล้างคุกกี้ของไซต์นี้และรีเฟรชหน้า การล้างคุกกี้ทั้งหมดอาจนำคุณออกจากระบบหรือล้างรถเข็นช็อปปิ้ง</string>
 
     <!-- Long text for a detail explanation indicating what will happen if cookie banner handling is off for a site, this is shown as part of the cookie banner panel in the toolbar. The placeholder will be updated with the app name. -->
-    <string name="cookie_banner_exception_panel_description_state_off_for_site">%1$s สามารถพยายามปฏิเสธคำขอคุกกี้โดยอัตโนมัติได้ หากไม่มีตัวเลือกปฏิเสธ %1$s อาจยอมรับคุกกี้ทั้งหมดเพื่อปิดแบนเนอร์</string>
+    <string name="cookie_banner_exception_panel_description_state_off_for_site" moz:RemovedIn="111" tools:ignore="UnusedResources">%1$s สามารถพยายามปฏิเสธคำขอคุกกี้โดยอัตโนมัติได้ หากไม่มีตัวเลือกปฏิเสธ %1$s อาจยอมรับคุกกี้ทั้งหมดเพื่อปิดแบนเนอร์</string>
+
+    <!-- Long text for a detail explanation indicating what will happen if cookie banner handling is off for a site, this is shown as part of the cookie banner panel in the toolbar. The placeholder will be updated with the app name. -->
+    <string name="cookie_banner_exception_panel_description_state_off_for_site2">%1$s สามารถพยายามปฏิเสธคำขอคุกกี้โดยอัตโนมัติได้</string>
+
+    <!-- Contextual Feature Recommendation Popups -->
+    <!-- CFR for Cookie Banner (Banner Info Message). The placeholder will be updated with the app name. -->
+    <string name="cfr_for_cookie_banner" moz:RemovedIn="111" tools:ignore="UnusedResources">%1$s จะพยายามปฏิเสธคำขอคุกกี้เพื่อปิดแบนเนอร์คุกกี้ที่น่ารำคาญ\n\nโปรดจัดการการกำหนดลักษณะแบนเนอร์คุกกี้ในการตั้งค่า</string>
+    <!-- CFR for Cookie Banner (Banner Info Message). %1$s will be replaced by the app name, %2$s will be an active link using the string cfr_cookie_banner_link as text. -->
+    <string name="cfr_cookie_banner">%1$s จะพยายามปฏิเสธคำขอคุกกี้เพื่อปิดแบนเนอร์คุกกี้ที่น่ารำคาญ\n\nโปรดจัดการการกำหนดลักษณะแบนเนอร์คุกกี้ใน %2$s</string>
+    <!-- CFR for Cookie Banner (Banner Info Message). This text should be the same as the settings text from "cfr_for_cookie_banner". The text should be underlined and should redirect the user to the cookie banner settings screen. -->
+    <string name="cfr_for_cookie_banner_underline_settings" moz:RemovedIn="111" tools:ignore="UnusedResources">การตั้งค่า</string>
+    <!-- CFR for Cookie Banner (Banner Info Message). This string is used as text for a link in cfr_cookie_banner and takes the user to the app settings. -->
+    <string name="cfr_cookie_banner_link">การตั้งค่า</string>
 
     <!-- Preference for autoplay -->
     <string name="preference_autoplay">เล่นอัตโนมัติ</string>
@@ -894,6 +901,9 @@
     <!-- Label for the button in the snackbar that switches to the newly opened tab -->
     <string name="open_new_tab_snackbar">สลับ</string>
 
+    <!-- Text displayed in a notification when the user enters full screen mode -->
+    <string name="full_screen_notification">เข้าสู่โหมดเต็มหน้าจอ</string>
+
     <!-- Preference for switching to a new tab immediately after opening -->
     <string name="preference_open_new_tab">สลับไปยังลิงก์ในแท็บใหม่ทันที</string>
 
@@ -951,11 +961,11 @@
     <!-- Category of trackers (analytics) that can be blocked by Enhanced Tracking Protection -->
     <string name="analytics">การวิเคราะห์</string>
     <!-- Preference title for enhanced tracking protection settings -->
-    <string name="enhanced_tracking_protection">การป้องกันการติดตามที่มากขึ้น</string>
+    <string name="enhanced_tracking_protection">การป้องกันการติดตามแบบพิเศษ</string>
     <!-- Enhanced tracking protection preference description when the tracking protection is disabled for this site-->
-    <string name="enhanced_tracking_protection_state_off">การป้องกันถูก ปิด สำหรับไซต์นี้</string>
+    <string name="enhanced_tracking_protection_state_off">การป้องกันปิดอยู่สำหรับไซต์นี้</string>
     <!-- Enhanced tracking protection preference description when the tracking protection is enabled for this site-->
-    <string name="enhanced_tracking_protection_state_on">การป้องกันถูก เปิด สำหรับไซต์นี้</string>
+    <string name="enhanced_tracking_protection_state_on">การป้องกันเปิดอยู่สำหรับไซต์นี้</string>
     <!-- Label that indicates a site is using a secure connection -->
     <string name="secure_connection">การเชื่อมต่อปลอดภัย</string>
     <!-- Label that indicates a site is using a insecure connection -->
@@ -995,12 +1005,37 @@
     <string name="preference_follow_device_theme">ตามชุดตกแต่งอุปกรณ์</string>
 
     <!-- The title of the error page for websites that do not support HTTPS when HTTPS-Only is turned on  -->
-    <string name="errorpage_httpsonly_title">ไซต์ที่คุณร้องขอไม่รองรับ HTTPS</string>
+    <string name="errorpage_httpsonly_title" moz:RemovedIn="111" tools:ignore="UnusedResources">ไซต์ที่คุณร้องขอไม่รองรับ HTTPS</string>
+
+    <!-- The title of the error page for websites that do not support HTTPS when HTTPS-Only is turned on  -->
+    <string name="errorpage_httpsonly_title2">ไซต์นี้ไม่รองรับ HTTPS</string>
 
     <!-- The text of the error page for websites that do not support HTTPS when HTTPS-Only is turned on. %1$s will get replaced with the name of the app (e.g. "Firefox Focus") -->
-    <string name="errorpage_httpsonly_message">ตามค่าเริ่มต้น %1$s จะพยายามเชื่อมต่อโดยใช้ HTTPS เพื่อเพิ่มความปลอดภัย เมื่อต้องการเปลี่ยนการตั้งค่านี้หรือเรียนรู้เพิ่มเติม ให้ไปที่ การตั้งค่า &gt; ความเป็นส่วนตัวและความปลอดภัย &gt; ความปลอดภัย</string>
+    <string name="errorpage_httpsonly_message" moz:RemovedIn="111" tools:ignore="UnusedResources">ตามค่าเริ่มต้น %1$s จะพยายามเชื่อมต่อโดยใช้ HTTPS เพื่อเพิ่มความปลอดภัย เมื่อต้องการเปลี่ยนการตั้งค่านี้หรือเรียนรู้เพิ่มเติม ให้ไปที่ การตั้งค่า &gt; ความเป็นส่วนตัวและความปลอดภัย &gt; ความปลอดภัย</string>
 
-    <!-- Sessions List -->
+    <!-- The text of the error page for websites that do not support HTTPS when HTTPS-Only is turned on. %1$s will get replaced with the name of the app (e.g. "Firefox Focus").
+        Contains a button that will redirect the user to Privacy & Security Screen-->
+    <string name="errorpage_httpsonly_message2"><![CDATA[%1$s พยายามใช้การเชื่อมต่อ HTTPS ทุกครั้งที่ทำได้เพื่อความปลอดภัยที่มากขึ้น
+     <a href="%2$s">เรียนรู้เพิ่มเติม</a> <br/><br/>
+     โปรดเปลี่ยนการตั้งค่านี้ใน การตั้งค่า > ความเป็นส่วนตัวและความปลอดภัย > ความปลอดภัย]]></string>
+
+    <!-- The document title and heading of the error page shown when a website has an invalid or expired SSL certificate. -->
+    <string name="mozac_browser_errorpages_security_bad_cert_title">การเชื่อมต่อไม่ปลอดภัย</string>
+
+    <!-- The error message shown when a website has an invalid or expired SSL certificate. -->
+    <string name="mozac_browser_errorpages_security_bad_cert_message"><![CDATA[
+    สิ่งนี้อาจเป็นปัญหาจากการกำหนดค่าของเซิร์ฟเวอร์ หรืออาจมีใครบางคนกำลังพยายามปลอมแปลงเซิร์ฟเวอร์ <br/><br/>
+    หากคุณเคยเชื่อมต่อกับเซิร์ฟเวอร์นี้สำเร็จมาก่อน ข้อผิดพลาดอาจเกิดขึ้นเพียงชั่วคราว
+    ]]></string>
+
+     <!-- The advanced certificate information shown when a website has an invalid SSL certificate. The %1$s will be replaced by the app name and %2$s will be replaced by website URL. It's only shown when a website has an invalid SSL certificate. -->
+    <string name="mozac_browser_errorpages_security_bad_cert_techInfo"><![CDATA[
+        <label>อาจมีใครบางคนกำลังพยายามปลอมแปลงไซต์นี้และคุณไม่ควรดำเนินการต่อ</label>
+        <br><br>
+        <label>%1$s ไม่เชื่อถือ <b>%2$s</b> เนื่องจากไม่ทราบผู้ออกใบรับรอง ใบรับรองถูกลงชื่อด้วยตนเอง หรือเซิร์ฟเวอร์ไม่ส่งใบรับรองระดับกลางที่ถูกต้องมาให้</label>
+    ]]></string>
+
+     <!-- Sessions List -->
     <!-- Content description (not visible, for screen readers etc.): Button that closes a tab n the sessions list -->
     <string name="close_tab">ปิดแท็บ</string>
 
@@ -1026,13 +1061,18 @@
 
     !-- Content description (not visible, for screen readers etc.): This is the description for the
     close button from promote search widget dialog. --&gt;
+    <!-- Content description (not visible, for screen readers etc.): This is the description for the
+    close button from promote search widget dialog. -->
     <string name="promote_search_widget_dialog_content_description">ปิด</string>
 
     !-- Content description (not visible, for screen readers etc.): This is the description for
     picture of search widget from promote search widget dialog. --&gt;
+    <!-- Content description (not visible, for screen readers etc.): This is the description for
+    picture of search widget from promote search widget dialog. -->
     <string name="promote_search_widget_dialog_picture_content_description">วิดเจ็ตการค้นหา</string>
 
     !-- This is the title of promote search widget dialog. --&gt;
+    <!-- This is the title of promote search widget dialog. -->
     <string name="promote_search_widget_dialog_title">ล้างประวัติการท่องเว็บแล้ว! 🎉</string>
 
     !-- This is the subtitle of promote search widget dialog. %1$s will get replaced with the name
@@ -1042,13 +1082,19 @@
 
     !-- This is the subtitle of promote search widget dialog. %1$s will get replaced with the name
     of the app (e.g. &quot;Focus&quot;) --&gt;
+    <!-- This is the subtitle of promote search widget dialog. %1$s will get replaced with the name
+    of the app (e.g. "Focus") -->
     <string name="promote_search_widget_dialog_subtitle">เราจะปล่อยให้คุณท่องเว็บแบบส่วนตัว แต่เริ่มต้นในครั้งต่อไปเร็วขึ้นด้วยวิดเจ็ต %1$s บนหน้าโฮมของคุณ</string>
 
     !-- This is te text from add search widget to home screen button .The button is located on
     promote search widget dialog. --&gt;
+    <!-- This is te text from add search widget to home screen button .The button is located on
+    promote search widget dialog. -->
     <string name="promote_search_widget_button_text">เพิ่มวิดเจ็ตไปที่หน้าจอหลัก</string>
 
     !-- This is te text of the snackbar that appears after the search widget was added successfully
     to the home screen. --&gt;
+    <!-- This is te text of the snackbar that appears after the search widget was added successfully
+    to the home screen. -->
     <string name="promote_search_widget_snackbar_message">เพิ่มวิดเจ็ตในหน้าจอหลักแล้ว</string>
 </resources>

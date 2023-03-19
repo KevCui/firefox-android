@@ -44,7 +44,7 @@ import mozilla.components.feature.contextmenu.ContextMenuFeature
 import mozilla.components.feature.downloads.AbstractFetchDownloadService
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
-import mozilla.components.feature.downloads.share.ShareDownloadFeature
+import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
 import mozilla.components.feature.media.fullscreen.MediaSessionFullscreenFeature
 import mozilla.components.feature.prompts.PromptFeature
 import mozilla.components.feature.session.PictureInPictureFeature
@@ -58,7 +58,9 @@ import mozilla.components.service.glean.private.NoExtras
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
+import mozilla.components.support.locale.ActivityContextWrapper
 import mozilla.components.support.utils.Browsers
+import mozilla.components.support.utils.ext.requestInPlacePermissions
 import org.mozilla.focus.GleanMetrics.Browser
 import org.mozilla.focus.GleanMetrics.CookieBanner
 import org.mozilla.focus.GleanMetrics.Downloads
@@ -200,6 +202,9 @@ class BrowserFragment :
 
         requireContext().accessibilityManager.addAccessibilityStateChangeListener(this)
 
+        val originalContext = ActivityContextWrapper.getOriginalContext(requireActivity())
+        binding.engineView.setActivityContext(originalContext)
+
         return binding.root
     }
 
@@ -280,7 +285,7 @@ class BrowserFragment :
                 customTabId = tryGetCustomTabId(),
                 fragmentManager = parentFragmentManager,
                 onNeedToRequestPermissions = { permissions ->
-                    requestInPlacePermissions(permissions) { result ->
+                    requestInPlacePermissions(REQUEST_KEY_PROMPT_PERMISSIONS, permissions) { result ->
                         promptFeature.get()?.onPermissionsResult(
                             result.keys.toTypedArray(),
                             result.values.map {
@@ -310,7 +315,7 @@ class BrowserFragment :
                     DownloadService::class,
                 ),
                 onNeedToRequestPermissions = { permissions ->
-                    requestInPlacePermissions(permissions) { result ->
+                    requestInPlacePermissions(REQUEST_KEY_DOWNLOAD_PERMISSIONS, permissions) { result ->
                         downloadsFeature.get()?.onPermissionsResult(
                             result.keys.toTypedArray(),
                             result.values.map {
@@ -431,12 +436,18 @@ class BrowserFragment :
         }
     }
 
-    override fun onAccessibilityStateChanged(enabled: Boolean) = when (enabled) {
-        false -> binding.browserToolbar.enableDynamicBehavior(requireContext(), binding.engineView)
-        true -> {
-            with(binding.browserToolbar) {
-                disableDynamicBehavior(binding.engineView)
-                showAsFixed(requireContext(), binding.engineView)
+    override fun onAccessibilityStateChanged(enabled: Boolean) {
+        when (enabled) {
+            // using _binding, because this might be called before onCreateView.
+            false -> _binding?.browserToolbar?.enableDynamicBehavior(
+                requireContext(),
+                binding.engineView,
+            )
+            true -> {
+                _binding?.browserToolbar?.let {
+                    it.disableDynamicBehavior(binding.engineView)
+                    it.showAsFixed(requireContext(), binding.engineView)
+                }
             }
         }
     }
@@ -522,7 +533,10 @@ class BrowserFragment :
 
     override fun onDestroyView() {
         super.onDestroyView()
+
         requireContext().accessibilityManager.removeAccessibilityStateChangeListener(this)
+        binding.engineView.setActivityContext(null)
+
         _binding = null
     }
 
@@ -617,6 +631,13 @@ class BrowserFragment :
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        // Custom tab content should always be visible, even if the app is locked.
+        if (tab.isCustomTab()) {
+            view?.isVisible = true
+        }
+    }
     private fun showDownloadCompletedSnackbar(
         state: DownloadState,
         extension: String?,
@@ -698,6 +719,11 @@ class BrowserFragment :
         (requireActivity() as? MainActivity)?.hideStatusBarBackground()
         StatusBarUtils.getStatusBarHeight(binding.statusBarBackground) { statusBarHeight ->
             binding.statusBarBackground.layoutParams.height = statusBarHeight
+        }
+
+        // Custom tab content should always be visible, even if the app is locked.
+        if (tab.isCustomTab()) {
+            view?.isVisible = true
         }
     }
 
@@ -911,6 +937,7 @@ class BrowserFragment :
         val cookieBannerExceptionDetailsPanel = CookieBannerExceptionDetailsPanel(
             context = requireContext(),
             cookieBannerExceptionStore = cookieBannerExceptionStore,
+            ioScope = viewLifecycleOwner.lifecycleScope + Dispatchers.IO,
             tabUrl = tab.content.url,
             goBack = { trackingProtectionPanel?.show() },
             defaultCookieBannerInteractor = defaultCookieBannerInteractor,
@@ -980,6 +1007,8 @@ class BrowserFragment :
 
         private const val ARGUMENT_SESSION_UUID = "sessionUUID"
 
+        private const val REQUEST_KEY_DOWNLOAD_PERMISSIONS = "downloadFeature"
+        private const val REQUEST_KEY_PROMPT_PERMISSIONS = "promptFeature"
         fun createForTab(tabId: String): BrowserFragment {
             val fragment = BrowserFragment()
             fragment.arguments = Bundle().apply {
